@@ -1,0 +1,96 @@
+/**
+ * The Cryptoquote Class
+ * This program will take in the user's input phrase and turn it into a different decoded phrase
+ * @author Angie Tirado
+ * @since 4/4/24
+ */
+//adds the Scanner class to allow the user to input data
+import java.util.Scanner;
+public class Cryptoquote {
+
+    public static void main(String[] args) {
+        //creates a character array of the alphabet 
+        char[] arr = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        
+        //creates a new Scanner object
+        Scanner userInput = new Scanner(System.in);
+        //prompts the user to enter a phrase
+        System.out.println("Enter a phrase: ");
+        //stores user's input
+        String phrase = userInput.nextLine();        
+        
+        //try and catch statement
+        try{
+            //if the phrase the user entered is empty
+            if(phrase.isEmpty()){
+                //send out a message otherwise it will skip this part
+                throw new EmptyString();
+            }
+
+        }
+        //checks to see if the phrase the user entered is empty
+        catch(EmptyString e){
+            //display the message to the user
+            System.out.println(e.getMessage());
+            //store the user's new message
+            phrase = userInput.nextLine();
+        }
+        
+        //turns the user's String all into Upper Case letters
+        String phraseUpper = phrase.toUpperCase();
+        //calls the randOmArrayLetter method and randomizes the 
+        randomArrayLetter(arr);
+        //creates a String to store the new decoded phrase, and calls the decoded() method
+            //passes in the parameters of the user's phrase in all Upper case as well as the alphabete array
+        String decode = decoded(phraseUpper, arr);
+        
+        //displays the new decoded phrase
+        System.out.println(decode);
+        
+        
+    }
+    
+    /**
+     * The decoded() method will assign the randomized array with a letter in the user's phrase
+     * @param w     the user's word
+     * @param arr   the array contains the alphabet
+     * @return  the String with the decoded message
+     */
+    public static String decoded(String w, char[] arr){
+        String word = w.toUpperCase();
+        
+        String result = "";
+        
+        for(int i = 0; i < word.length(); i++){
+            char currentCharacter = word.charAt(i);
+            
+            if(Character.isLetter(currentCharacter)){
+                int index = currentCharacter - 'A';
+                if(index >= 0 && index < arr.length){
+                    result += arr[i];
+                }
+            }
+            else{
+                result += currentCharacter;
+            }
+        }
+        return result; 
+    }
+    
+    /**
+     * The randomArrayLetter() method will randomize the alphabetical array
+     * @param arr   the array contains the alphabetical letters
+     */
+    public static void randomArrayLetter(char[] arr){
+        int index;
+        char temp;
+        
+        for(int i = 0; i < arr.length; i++){
+            index = (int) (Math.random() * arr.length);
+            temp = arr[i];
+            arr[i] = arr[index];
+            arr[index] = temp;
+        }
+    }
+    
+}
