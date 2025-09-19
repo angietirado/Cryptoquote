@@ -1,0 +1,12 @@
+/**
+ * The EmptyString() class will display an error if there is an empty String
+ * @author Angie Tirado
+ * @since 4/4/24
+ * @exception empty String input
+ */
+public class EmptyString extends Exception{
+    public EmptyString(){
+        //displays to the user a message when there is an empty String input
+        super("Error: enter in a phrase!");
+    }
+}
